@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="min-h-screen p-5 flex flex-col gap-3 relative">
+  {% for chat in chats %}
+    <div class="p-2 sm:p-6 w-sm bg-white rounded shadow-lg flex items-center space-x-4">
+      {% if chat.secondUser == request.user %}
+        <div class="shrink-0">
+          <img src="{{chat.firstUser.user_profile.image.url}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+        </div>
+      {% else %}
+      <div class="shrink-0">
+        <img src="{{chat.secondUser.user_profile.image.url}}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+      </div>
+      {% endif %}
+        <div class="w-screen space-y-0.5 sm:space-y-1.5 ">
+            <div class="flex flex-row justify-between items-center">
+              {% if chat.secondUser == request.user %}
+              <a href="{% url 'chat' chat.firstUser.id %}">
+                <p class="text-xl font-medium text-black">{{chat.firstUser|title}}</p>
+              </a>
+              {% else %}
+              <a href="{% url 'chat' chat.secondUser.id %}">
+                <p class="text-xl font-medium text-black">{{chat.secondUser|title}}</p>
+              </a>
+              {% endif %}
+              <p class="text-xs font-medium text-gray-400">{{chat.messages.last.stamp_time|time}}</p>
+            </div>
+            <p class="text-slate-500 text-xs ">{{chat.messages.last.message|title}}</p>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% include "bottomnav.html" %}
+{% endblock content %}

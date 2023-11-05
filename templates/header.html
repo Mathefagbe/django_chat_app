@@ -1,0 +1,38 @@
+{% load static %}
+<header>
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 shadow-lg">
+        <div class="flex  justify-between items-center mx-auto max-w-screen-xl">
+            <h2
+                class="self-center text-xl font-semibold whitespace-nowrap dark:text-white w-[90%] text-center sm:text-start">
+                ECHO-CHAT</h2>
+            <div class="flex items-center lg:order-2">
+                {% if request.user.is_authenticated %}
+                <div class="relative flex items-center lg:order-2 w-10 h-10 rounded-lg justify-center">
+                    <img id="avatar" class="w-10 h-10 p-1 rounded-full ring-2 hover:ring-green-300 hover:dark:ring-green-500"
+                        src="{{request.user.user_profile.image.url}}" alt="Bordered avatar">
+                    <!-- Dropdown menu -->
+                    <div id="userDropdown"
+                        class="z-10 absolute top-10 right-5 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div>{{request.user.username|title}}</div>
+                            <div class="font-medium truncate">{{request.user.email}}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+                            <li>
+                                <a href="{%url 'profile' %}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit Profile</a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            {% csrf_token %}
+                            <a href="" id="logout"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                                out</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="min-h-screen p-5 flex flex-col gap-3">
+  {% for friend in friends %}
+    <div class="p-3 w-sm bg-white rounded shadow-lg flex items-center space-x-4">
+        <img src="{{friend.user_to.user_profile.image.url}}" alt="" class="block shrink-0 w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+        <div class="flex flex-row justify-between items-center w-screen">
+          {% csrf_token %}
+          <a href="{% url 'chat' friend.user_to.id %}">
+            <div class="space-y-1 text-left">
+              <p class="user text-lg text-black font-semibold">{{friend.user_to.username|title}}</p>
+            </div>
+          </a>
+          <button class="followbtn follower-btn">Following</button>
+        </div>
+    </div>
+  {% endfor %}
+</div>
+{% include "bottomnav.html" %}
+{% endblock content %}

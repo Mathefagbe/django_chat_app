@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="w-full  bg-white border border-gray-200 shadow mx-auto my-auto h-screen py-10">
+    <div class="flex flex-col items-center pb-10">
+        <img id="profile-img" class="w-24 h-24 sm:w-36 sm:h-36 mb-3 rounded-full shadow-lg" src="{{ profile.image.url }}" alt="Bonnie image"/>
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{profile.user.username|title}}</h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{profile.user.email}}</span>
+        <div class="flex mt-4 space-x-3 md:mt-6">
+            {% csrf_token %}
+            <a href="#" id="profile_btn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Profile</a>
+            
+        </div>
+    </div>
+</div>
+{% include "bottomnav.html" %}
+{% endblock content%}

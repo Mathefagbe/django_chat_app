@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="min-h-screen p-5 flex flex-col gap-3">
+    {% for user in users %}
+        <div class="px-2 py-6 w-sm bg-white rounded shadow-lg flex items-center space-x-2">
+            <img src="{{user.user_profile.image.url}}" alt="" class="shrink-0 block w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+            <div class="flex flex-row justify-between items-center w-screen">
+                {% csrf_token %}
+                <div class="space-y-1 text-left">
+                    <p class="user text-lg text-black font-semibold">{{user.username|title}}</p>
+                    <p class="text-xs text-black font-light">{{user.email}}</p>
+                </div>
+                {% if user.id in followings %}
+                    <button class="followbtn follower-btn">Following</button>
+                {% else %}
+                    <button class="followbtn follower-btn">Follow</button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% include "bottomnav.html" %}
+{% endblock content %}

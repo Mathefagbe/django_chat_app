@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <div>
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+    <script src="{% static 'javascripts/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'javascripts/authentication.js' %}"></script>
+    <script src="{% static 'javascripts/signup.js' %}"></script>
+    <script src="{% static 'javascripts/app.js' %}"></script>
+    <script src="{% static 'javascripts/navigation.js' %}"></script>
+</body>
+</html>
