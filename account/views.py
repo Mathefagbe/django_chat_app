@@ -107,8 +107,7 @@ class UploadImage(LoginRequiredMixin,CreateView):
                     "status":201})
      
 class UserLogoutView(View):
-    # template_name='login.html'
-
+    
     def post(self, request, *args, **kwargs):
           auth_logout(request=request)
           return JsonResponse({

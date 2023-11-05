@@ -1741,10 +1741,6 @@ video {
     padding-bottom: 8rem;
   }
 
-  .sm\:pb-80 {
-    padding-bottom: 20rem;
-  }
-
   .sm\:text-start {
     text-align: start;
   }
@@ -1793,10 +1789,6 @@ video {
   .lg\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
-  }
-
-  .lg\:pb-80 {
-    padding-bottom: 20rem;
   }
 
   .lg\:pb-32 {
