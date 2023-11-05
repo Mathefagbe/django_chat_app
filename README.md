@@ -29,4 +29,11 @@ To run the Teragist API locally, follow these steps:
 
 ## **NOTE**
 You system must be able to install redis for the channel layer to work.You can check django channels documentaions for more info
+
+## **Screenshots**
+![Screenshot (378)](https://github.com/Mathefagbe/django_chat_app/assets/94699588/420c8285-f3ef-4561-881f-4dcdcbbc5eb8)
+![Screenshot (379)](https://github.com/Mathefagbe/django_chat_app/assets/94699588/6fcca2b2-c5da-4d2b-93c1-7be194a05a98)![Screenshot (381)](https://github.com/Mathefagbe/django_chat_app/assets/94699588/80c7b88f-f469-4b56-9652-668d40c59c28)
+
+
+
   
