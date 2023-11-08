@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-64zfe3$b+85zftepch%s-ejo67mju)5g--@*numc@(n=fz=w!j'
+SECRET_KEY =os.environ("SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -151,7 +151,7 @@ if DEBUG:
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
-    "https://7fd4-105-113-72-5.ngrok-free.app"
+    "https://4e78-105-113-73-82.ngrok-free.app"
 ]
 CORS_ALLOW_ALL_ORIGINS=True
 
@@ -160,7 +160,7 @@ CORS_ALLOW_ALL_ORIGINS=True
 # )
 CSRF_TRUSTED_ORIGINS=[
     "http://127.0.0.1:8000",
-    "https://7fd4-105-113-72-5.ngrok-free.app"
+    "https://4e78-105-113-73-82.ngrok-free.app"
 ]
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -170,3 +170,11 @@ CORS_ALLOW_METHODS = (
     "POST",
     "PUT",
 )
+
+
+CACHES = {
+    'default': {
+    'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+    'LOCATION': 'redis://127.0.0.1:6379',
+    }
+}

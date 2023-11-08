@@ -958,6 +958,10 @@ video {
   resize: both;
 }
 
+.scroll-mb-96 {
+  scroll-margin-bottom: 24rem;
+}
+
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1275,8 +1279,8 @@ video {
   padding-bottom: 2.5rem;
 }
 
-.pb-20 {
-  padding-bottom: 5rem;
+.pb-96 {
+  padding-bottom: 24rem;
 }
 
 .pl-10 {
@@ -1285,6 +1289,10 @@ video {
 
 .pt-3 {
   padding-top: 0.75rem;
+}
+
+.pb-32 {
+  padding-bottom: 8rem;
 }
 
 .text-left {

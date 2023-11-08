@@ -1,5 +1,7 @@
 const inputs = document.createElement('input');
+
 $(".followbtn").each(function (index, element) {
+    var protocol=location.protocol.split(":")[0]
         $(element).on("click", function (e) {
             e.preventDefault()
             var token =  $('input[name="csrfmiddlewaretoken"]').attr("value"); 
@@ -9,7 +11,7 @@ $(".followbtn").each(function (index, element) {
             var textContent=userElement.text()
         $.ajax({
             type: "POST",
-            url:`https://${window.location.host}/follow/`,
+            url:`${protocol}://${window.location.host}/follow/`,
             headers: {
                 'X-CSRFToken': token
            },
@@ -68,12 +70,13 @@ function displays() {
 }
 
 function uploadFile(uploads) {
+    var protocol=window.location.protocol
     var token =  $('input[name="csrfmiddlewaretoken"]').attr("value"); 
     const formdata=new FormData()
     formdata.append('profile',uploads)
     $.ajax({
         type: "POST",
-        url: `https://${window.location.host}/upload/`,
+        url: `${protocol}://${window.location.host}/upload/`,
         data: formdata,
         headers: {
             'X-CSRFToken': token

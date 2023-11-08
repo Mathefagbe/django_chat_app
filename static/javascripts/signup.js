@@ -1,4 +1,5 @@
 $('#sign-up').on("click",(e)=>{
+    var protocol=location.protocol.split(":")[0]
     var token =  $('input[name="csrfmiddlewaretoken"]').attr("value"); 
     var username = $("#username").val()
     var  fullName = $("#full-name").val()
@@ -10,7 +11,7 @@ $('#sign-up').on("click",(e)=>{
     if(password==confirm_password){
     $.ajax({
         type: "POST",
-        url: `https://${window.location.host}/sign-up/`,
+        url: `${protocol}://${window.location.host}/sign-up/`,
         headers: {
             'X-CSRFToken': token
        },
@@ -25,7 +26,7 @@ $('#sign-up').on("click",(e)=>{
         success: function (res) {
             if (res.status===201){
                 $("#spinner").hide();
-                window.location=`https://${window.location.host}/login/`
+                window.location=`${protocol}://${window.location.host}/login/`
             }else{
                 alert(message=res.error)
                 $("#spinner").hide();

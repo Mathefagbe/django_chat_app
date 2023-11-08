@@ -1,4 +1,5 @@
 $('#login').on("click",(e)=>{
+    var protocol=location.protocol.split(":")[0]
     var token =  $('input[name="csrfmiddlewaretoken"]').attr("value"); 
     var username=$("#login-username").val()
     var password=$("#password").val()
@@ -6,7 +7,7 @@ $('#login').on("click",(e)=>{
     $("#spinner").show();
     $.ajax({
         type: "POST",
-        url: `https://${window.location.host}/login/`,
+        url: `${protocol}://${window.location.host}/login/`,
         headers: {
             'X-CSRFToken': token
        },
@@ -17,7 +18,7 @@ $('#login').on("click",(e)=>{
         dataType: "json",
         success: function (res) {
             if (res.status===200){
-                window.location=`https://${window.location.host}/chats/`
+                window.location=`${protocol}://${window.location.host}/chats/`
                 $("#spinner").hide();
             }else{
                 alert(message=res.error)
@@ -40,14 +41,14 @@ $("#logout").on("click", function (e) {
     var token =  $('input[name="csrfmiddlewaretoken"]').attr("value"); 
     $.ajax({
         type: "POST",
-        url: `https://${window.location.host}/logout/`,
+        url: `${window.location.protocol}://${window.location.host}/logout/`,
         headers: {
             'X-CSRFToken': token
        },
         dataType: "json",
         success: function (res) {
             if (res.status===200){
-                window.location=`https://${window.location.host}/login/`
+                window.location=`${window.location.protocol}://${window.location.host}/login/`
             } 
         },
         error:function(error){
