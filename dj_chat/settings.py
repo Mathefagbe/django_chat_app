@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =os.environ("SECRET")
+SECRET_KEY =config("SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,14 +82,20 @@ ASGI_APPLICATION = 'dj_chat.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
 
+            # You can remove to use mysql
+            'default': dj_database_url.parse(config('DATABASE_URL'))
+            
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -125,6 +134,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS= [BASE_DIR / 'static']
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -138,7 +149,8 @@ CHANNEL_LAYERS = {
  'default': {
  'BACKEND': 'channels_redis.core.RedisChannelLayer',
  'CONFIG': {
- 'hosts': [('127.0.0.1', 6379)],
+#  'hosts': [('127.0.0.1', 6379)],
+"hosts":[config("REDIS_HOST")]
  },
  },
 }
@@ -172,9 +184,9 @@ CORS_ALLOW_METHODS = (
 )
 
 
-CACHES = {
-    'default': {
-    'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-    'LOCATION': 'redis://127.0.0.1:6379',
-    }
-}
+# CACHES = {
+#     'default': {
+#     'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#     'LOCATION': 'redis://127.0.0.1:6379',
+#     }
+# }

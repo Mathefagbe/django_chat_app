@@ -3,7 +3,7 @@ from asgiref.sync import async_to_sync
 from .models import ChatConversation,Messages
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django.core.cache import cache
+
 
 User=get_user_model()
 
@@ -17,17 +17,12 @@ class ChatConsumer(JsonWebsocketConsumer):
         self.sender_reciever=f"{self.user.id}_{self.receiver.id}"
         self.receiver_sender=f"{self.receiver.id}_{self.user.id}"
         self.room_name=None
-        if cache.get(self.sender_reciever):
-                self.room_name=cache.get(self.sender_reciever)    
-        elif cache.get(self.receiver_sender):
-                self.room_name=cache.get(self.receiver_sender)
+
+        if ChatConversation.objects.filter(Q(group_name=self.sender_reciever)|Q(group_name=self.receiver_sender)).exists():
+            self.room_name=ChatConversation.objects.get(Q(group_name=self.sender_reciever)|Q(group_name=self.receiver_sender))
         else:
-            if ChatConversation.objects.filter(Q(group_name=self.sender_reciever)|Q(group_name=self.receiver_sender)).exists():
-                self.room_name=ChatConversation.objects.get(Q(group_name=self.sender_reciever)|Q(group_name=self.receiver_sender))
-                cache.set(self.sender_reciever,self.room_name,timeout=10000)
-            else:
-                self.room_name=ChatConversation.objects.create(firstUser=self.user,group_name=self.sender_reciever,secondUser= self.receiver)
-                cache.set(self.sender_reciever,self.room_name,timeout=10000)
+            self.room_name=ChatConversation.objects.create(firstUser=self.user,group_name=self.sender_reciever,secondUser= self.receiver)
+                
         async_to_sync(self.channel_layer.group_add)(
         self.room_name.group_name,
         self.channel_name)
