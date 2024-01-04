@@ -11,6 +11,9 @@
 * To setup the project first u folow tailwind css documentation in other to use tailwind with your project
 * Once that is done follow installation project
 
+
+daphne -b 0.0.0.0 dj_chat.asgi:application
+
 ## **Installation**
 To run the Teragist API locally, follow these steps:
 * Clone the repository:
