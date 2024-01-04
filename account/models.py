@@ -2,12 +2,14 @@ from typing import Iterable, Optional
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,AbstractUser
 from django.contrib.auth.hashers import make_password
-from django.contrib import auth
+from django.contrib.auth import get_user_model
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.apps import apps
-from django.conf import settings
+
+
+
 
 
 # Create your models here.
@@ -69,10 +71,9 @@ class CustomUsers(AbstractBaseUser,PermissionsMixin):
         self.email = self.__class__.objects.normalize_email(self.email)
 
 
+User=get_user_model()
+
  
-
-    
-
 class UserProfile(models.Model):
     image=models.ImageField(upload_to='profiles',default="profiles/user1.png")
-    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_profile')
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user_profile')
