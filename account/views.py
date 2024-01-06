@@ -21,24 +21,36 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import UserProfile
 User=get_user_model()
 
-class UserLoginView(LoginView):
-    template_name='login.html'
 
-    def post(self, request,*args,**kwargs):
-            data=json.loads(request.body)
-            user=authenticate(request,**data)
-            if user is None:
-                return JsonResponse({
-                    "error":"Login credentials does not exist",
-                    "data":[],
-                    "status":"404"})
-            else:
-                auth_login(request,user)
-                return JsonResponse({
-                    "message":"success",
-                    "data":[],
-                    "status":200
-                })
+
+# class UserLogin(LoginView):
+#     template_name="login.html"
+    
+
+#     def get_success_url(self) -> str:
+#         return reverse("home")
+     
+class UserLoginView(LoginView):
+    template_name='log.html'
+
+    # def post(self, request,*args,**kwargs):
+    #         data=json.loads(request.body)
+    #         user=authenticate(request,**data)
+    #         if user is None:
+    #             return JsonResponse({
+    #                 "error":"Login credentials does not exist",
+    #                 "data":[],
+    #                 "status":"404"})
+    #         else:
+    #             auth_login(request,user)
+    #             return JsonResponse({
+    #                 "message":"success",
+    #                 "data":[],
+    #                 "status":200
+    #             })
+            
+    def get_success_url(self) -> str:
+        return reverse("home")
 
 
 class SignUpView(CreateView):
