@@ -163,7 +163,8 @@ if DEBUG:
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
-    "https://4e78-105-113-73-82.ngrok-free.app"
+    "https://4e78-105-113-73-82.ngrok-free.app",
+    "https://chat-app-75v0.onrender.com"
 ]
 CORS_ALLOW_ALL_ORIGINS=True
 
@@ -172,7 +173,8 @@ CORS_ALLOW_ALL_ORIGINS=True
 # )
 CSRF_TRUSTED_ORIGINS=[
     "http://127.0.0.1:8000",
-    "https://4e78-105-113-73-82.ngrok-free.app"
+    "https://4e78-105-113-73-82.ngrok-free.app",
+    "https://chat-app-75v0.onrender.com",
 ]
 CORS_ALLOW_METHODS = (
     "DELETE",
