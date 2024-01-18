@@ -149,8 +149,7 @@ CHANNEL_LAYERS = {
  'default': {
  'BACKEND': 'channels_redis.core.RedisChannelLayer',
  'CONFIG': {
-#  'hosts': [('127.0.0.1', 6379)],
-"hosts":[config("REDIS_HOST")]
+        "hosts":[os.getenv("REDIS_HOST")]
  },
  },
 }
@@ -166,11 +165,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://4e78-105-113-73-82.ngrok-free.app",
     "https://chat-app-75v0.onrender.com"
 ]
-CORS_ALLOW_ALL_ORIGINS=True
 
-# CORS_ALLOW_HEADERS=(
-#     *default_headers,
-# )
+CORS_ALLOW_ALL_ORIGINS = False
+
 CSRF_TRUSTED_ORIGINS=[
     "http://127.0.0.1:8000",
     "https://4e78-105-113-73-82.ngrok-free.app",
@@ -186,9 +183,3 @@ CORS_ALLOW_METHODS = (
 )
 
 
-# CACHES = {
-#     'default': {
-#     'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-#     'LOCATION': 'redis://127.0.0.1:6379',
-#     }
-# }
